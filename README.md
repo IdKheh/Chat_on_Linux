@@ -1,1 +1,39 @@
 # Chat_on_Linux
+## Opis działania
+Komunikacja programu serwera i klienta odbywa się za pomocą jednej kolejki
+komunikatów. W obu programach stosujemy tylko jedną strukturę wiadomość, której
+struktura znajduje się w pliku nagłówkowym inf151874_inf151867_Message.h .
+Serwer to program który znajduje się w nieskończonej pętli oczekując na nadchodzące
+wiadomości od klientów. Gdy taką wiadomość odbierze jest ona realizowana, a wynik
+jest zwracany klientowi, który taki wynik odbiera i wyświetla w konsoli. Serwer
+otrzymuje wiadomości o typu 1, a zwraca takiego typu jakiego klient ma PID.
+Klient jest użytkownikiem serwera. Po uruchomieniu programu klienta wysyłana jest
+wiadomość o PID programu, a poprawnym zalogowaniu mamy dostępne wszystkie
+funkcjonalności chatu. Każde wysłane polecenie do serwera składa się z kilku tak samo
+skonstruowanych wiadomości wysłanych wielokrotnie.
+Chcąc dodać się do grupy najpierw podajemy do której grupy chcemy dołączyć, potem
+wysyłane jest do serwera polecenie „add to groups”, następnie wiadomość z PID
+programu klienta, a następnie grupa do której chcemy dołączyć. Serwer po otrzymaniu
+tych wszystkich wiadomości odeśle nam rezulatat o typie naszego PID, dlatego wiemy,
+która wiadomość od serwera należy do jakiego klienta. Na końcu wyświetlamy wynik
+naszego zapytania.
+## Struktura wiadomości
+struct Message {
+long mtype;
+char mtext[1024];
+};
+## Polecenia
+Komunikacja na linii serwer – klient odbywa się za pomocą poleceń. Funkcja „odbierz
+wiadomość” nie ma wysyła polecenia, ponieważ jest to jedyna funkcja, którą wykonuje
+klient.
+Funkcje oraz polecenia (w nawiasie):
+1 ("logout")- Wyloguj się
+2 ("active users")- Zalogowani użytkownicy
+3 ("groups")- Lista grup
+4 ("users in group")- Uzytkownicy w grupie
+5 ("add to groups")- Zapisz się do grupy
+6 ("out of groups")- Wypisz się z grupy
+7 ("send message to group")- Wyślij wiadomość do grupy
+8 ("send message to user")- Wyślij wiadomość do użytkownika
+9 - Odbierz wiadomości
+10 ("block user")- Zablokuj użytkownika
